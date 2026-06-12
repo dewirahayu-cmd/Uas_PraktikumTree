@@ -7,7 +7,7 @@ public class BinarySearchTreeFilm08 {
     public BinarySearchTreeFilm08() {
         root = null;
     }
-    
+
     // method isEmpty()
     public boolean isEmpty() {
         return root == null;
@@ -49,12 +49,12 @@ public class BinarySearchTreeFilm08 {
 
     // method find() mencari film berdasarkan kodeFilm
     public boolean find(String kodeFilm) {
-        boolean result  = false; // false jika tidak ditemukan
+        boolean    result  = false; // false jika tidak ditemukan
         NodeFilm08 current = root;
 
         while (current != null) {
             if (kodeFilm.equals(current.data.kodeFilm)) {
-                result = true;   // mengembalikan true jika ditemukan
+                result = true;      // mengembalikan true jika ditemukan
                 break;
             } else if (kodeFilm.compareTo(current.data.kodeFilm) < 0) {
                 current = current.left;
@@ -62,6 +62,7 @@ public class BinarySearchTreeFilm08 {
                 current = current.right;
             }
         }
+        System.out.println("Pencarian " + kodeFilm + " : " + (result ? "Ditemukan" : "Tidak ditemukan"));
         return result;
     }
 
@@ -74,7 +75,7 @@ public class BinarySearchTreeFilm08 {
         }
     }
 
-    // method traversePreOrder() 
+    // method traversePreOrder()
     public void traversePreOrder(NodeFilm08 node) {
         if (node != null) {
             node.data.tampilInformasi();
@@ -83,24 +84,29 @@ public class BinarySearchTreeFilm08 {
         }
     }
 
-    // method hitungJumlahFilm() 
+    // method hitungJumlahFilm()
     public int hitungJumlahFilm(NodeFilm08 node) {
         if (node == null) {
             return 0;
         }
-        // Jumlah = 1 (node ini) + jumlah di subtree kiri + jumlah di subtree kanan
+        // jumlah = 1 (node ini) + jumlah di subtree kiri + jumlah di subtree kanan
         return 1 + hitungJumlahFilm(node.left) + hitungJumlahFilm(node.right);
     }
 
-    // method cariRatingTertinggi() 
+    // method tampilJumlahFilm()
+    public void tampilJumlahFilm(NodeFilm08 node) {
+        System.out.println("Jumlah film dalam tree : " + hitungJumlahFilm(node));
+    }
+
+    // method cariRatingTertinggi()
     public Film08 cariRatingTertinggi(NodeFilm08 node) {
         if (node == null) {
             return null;
         }
 
         // ambil kandidat rating tertinggi dari subtree kiri dan kanan
-        Film08 filmKiri   = cariRatingTertinggi(node.left);
-        Film08 filmKanan  = cariRatingTertinggi(node.right);
+        Film08 filmKiri  = cariRatingTertinggi(node.left);
+        Film08 filmKanan = cariRatingTertinggi(node.right);
 
         // mulai dengan film di node saat ini
         Film08 tertinggi = node.data;
@@ -117,6 +123,12 @@ public class BinarySearchTreeFilm08 {
 
         return tertinggi;
     }
-}
-    
 
+    // method tampilRatingTertinggi()
+    public void tampilRatingTertinggi(NodeFilm08 node) {
+        Film08 filmTerbaik = cariRatingTertinggi(node);
+        if (filmTerbaik != null) {
+            filmTerbaik.tampilInformasi();
+        }
+    }
+}
